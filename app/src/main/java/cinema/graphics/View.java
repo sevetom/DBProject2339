@@ -185,6 +185,9 @@ public class View extends javax.swing.JFrame {
 
     private void loadWorkers() {
         for (Worker w : this.logic.getWorkers()) {
+            if (w.getCF().equals("admin")) {
+                continue;
+            }
             final String[] row = {w.getCF(), w.getRole(), w.getName(), w.getSurname(), 
                     w.getCity(), w.getStreet(), String.valueOf(w.getHouseNumber()), String.valueOf(w.getIntern())};
             ((javax.swing.table.DefaultTableModel) this.workersTable.getModel()).addRow(row);
