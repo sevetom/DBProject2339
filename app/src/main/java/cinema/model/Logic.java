@@ -30,6 +30,8 @@ import cinema.utils.Utils;
  */
 public class Logic {
     final private Connection connection;
+    private Float ticketPrice = 8.00f;
+
     public Logic(final Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
@@ -270,6 +272,10 @@ public class Logic {
         }
     }
 
+    public void setTicketPrice(final float price) {
+        this.ticketPrice = price;
+    }
+
     public void insertUser(final String email, final Date birth, final int cap, final String cardName, 
             final long cardNumber, final Date cardExpire, final int cardCvc, final String name, 
             final String surname, final String pw, final String city, final String street, final int houseNumber, final int intern) {
@@ -421,7 +427,7 @@ public class Logic {
                 ticketId = result.getInt(1) + 1;
             }
             statement.setInt(1, ticketId);
-            statement.setFloat(2, Float.parseFloat("8.00"));
+            statement.setFloat(2, this.ticketPrice);
             statement.setInt(3, screening.getSeatsRemaining());
             final String query3 = "UPDATE proiezione SET PostiRimanenti = ? WHERE CodiceTurno = ? AND NumeroSala = ? AND Titolo = ?;";
             final PreparedStatement statement3 = this.connection.prepareStatement(query3);
