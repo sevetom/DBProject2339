@@ -45,6 +45,7 @@ public class View extends javax.swing.JFrame {
      * Creates new form View
      */
     public View(final Logic logic) {
+        super("Cinema");
         this.initComponents();
         this.initLook();
         this.initSets();
