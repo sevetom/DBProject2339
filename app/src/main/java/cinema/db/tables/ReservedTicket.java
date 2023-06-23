@@ -12,12 +12,11 @@ public class ReservedTicket {
     private final Date date;
     private final String showDate;
     private final Time time;
-    private final int roomNumber;
     private final String email;
     private final int reservationCode;
     private final String CF;
 
-    public ReservedTicket(final int ticketCode, final float price, final int seatNumber, final String filmTitle, final Date date, final Time time, final int roomNumber, final String email, final int reservationCode, final String CF) {
+    public ReservedTicket(final int ticketCode, final float price, final int seatNumber, final String filmTitle, final Date date, final Time time, final String email, final int reservationCode, final String CF) {
         this.ticketCode = ticketCode;
         this.price = price;
         this.seatNumber = seatNumber;
@@ -27,7 +26,6 @@ public class ReservedTicket {
         cal.setTime(date);
         this.showDate = "" + cal.get(Calendar.DAY_OF_MONTH) +"/"+ cal.get(Calendar.MONTH) +"/"+ cal.get(Calendar.YEAR);
         this.time = time;
-        this.roomNumber = roomNumber;
         this.email = email;
         this.reservationCode = reservationCode;
         this.CF = CF;
@@ -59,10 +57,6 @@ public class ReservedTicket {
 
     public Time getTime() {
         return this.time;
-    }
-
-    public int getRoomNumber() {
-        return this.roomNumber;
     }
 
     public String getEmail() {

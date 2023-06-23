@@ -89,14 +89,13 @@ public class Logic {
                 final int TicketCode = result.getInt("CodiceBiglietto");
                 final float Price = result.getFloat("Prezzo");
                 final int SeatNumber = result.getInt("NumeroPosto");
-                final String MovieTitle = result.getString("TitoloFilm");
+                final String MovieTitle = result.getString("Titolo");
                 final Date ScreeningDate = Utils.sqlDateToDate(result.getDate("Data"));
                 final Time ScreeningTime = result.getTime("Orario");
-                final int RoomNumber = result.getInt("NumeroSala");
                 final String Email = result.getString("Email");
                 final int ReservationCode = result.getInt("CodicePrenotazione");
                 final String CF = result.getString("CodiceFiscale");
-                final Ticket ticket = new Ticket(TicketCode, Price, SeatNumber, MovieTitle, ScreeningDate, ScreeningTime, RoomNumber, Email, ReservationCode, CF);
+                final Ticket ticket = new Ticket(TicketCode, Price, SeatNumber, MovieTitle, ScreeningDate, ScreeningTime, Email, ReservationCode, CF);
                 tickets.add(ticket);
             }
             return tickets;
@@ -357,7 +356,6 @@ public class Logic {
         final String query = "INSERT INTO sala (NumeroSala, NumeroPosti, CodiceFiscale)" 
                 + " VALUES (?, ? , ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            // takes the highest number bewtween rooms and adds 1
             final int roomId = this.getRooms().stream().mapToInt(r -> r.getRoomId()).max().orElse(0) + 1;
             statement.setInt(1, roomId);
             statement.setInt(2, seats);
@@ -369,7 +367,7 @@ public class Logic {
     }
 
     public void insertScreening(final int turnId, final int roomId, final String filmTitle) {
-        final String query = "INSERT INTO proiezione (PostiRimanenti, CodiceTurno, NumeroSala, TitoloFilm)" 
+        final String query = "INSERT INTO proiezione (PostiRimanenti, CodiceTurno, NumeroSala, Titolo)" 
                 + " VALUES (?, ? , ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final int seats = this.getRooms().stream().filter(r -> r.getRoomId() == roomId).mapToInt(r -> r.getSeats()).findFirst().orElse(0);
@@ -384,7 +382,7 @@ public class Logic {
     }
 
     public Set<ReservedTicket> getTicketsReserved(final User loggedUser) {
-        final String query = "SELECT CodiceBiglietto, Prezzo, NumeroPosto, TitoloFilm, Data, Orario, NumeroSala, Email, CodicePrenotazione, CodiceFiscale " 
+        final String query = "SELECT CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario, Email, CodicePrenotazione, CodiceFiscale " 
                 + "FROM biglietto WHERE Email = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, loggedUser.getEmail());
@@ -394,14 +392,13 @@ public class Logic {
                 final int ticketId = result.getInt("CodiceBiglietto");
                 final float price = result.getFloat("Prezzo");
                 final int seatNumber = result.getInt("NumeroPosto");
-                final String filmTitle = result.getString("TitoloFilm");
+                final String filmTitle = result.getString("Titolo");
                 final Date screeningDate = Utils.sqlDateToDate(result.getDate("Data"));
                 final Time screeningTime = result.getTime("Orario");
-                final int roomNumber = result.getInt("NumeroSala");
                 final String userEmail = result.getString("Email");
                 final int reservationId = result.getInt("CodicePrenotazione");
                 final String userCF = result.getString("CodiceFiscale");
-                final ReservedTicket ticket = new ReservedTicket(ticketId, price, seatNumber, filmTitle, screeningDate, screeningTime, roomNumber, userEmail, reservationId, userCF);
+                final ReservedTicket ticket = new ReservedTicket(ticketId, price, seatNumber, filmTitle, screeningDate, screeningTime, userEmail, reservationId, userCF);
                 tickets.add(ticket);
             }
             return tickets;
@@ -416,7 +413,7 @@ public class Logic {
         if (screening == null || turn == null) {
             return false;
         }
-        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, TitoloFilm, Data, Orario, NumeroSala, Email, CodicePrenotazione, CodiceFiscale)" 
+        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario Email, CodicePrenotazione, CodiceFiscale)" 
                 + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final String query2 = "SELECT MAX(CodiceBiglietto) FROM biglietto;";
@@ -439,8 +436,7 @@ public class Logic {
             statement.setString(4, filmTitle);
             statement.setDate(5, Utils.dateToSqlDate(turn.getDate()));
             statement.setTime(6, turn.getStartingTime());
-            statement.setInt(7, room);
-            statement.setString(8, loggedUser.getEmail());
+            statement.setString(7, loggedUser.getEmail());
             final String query4 = "SELECT MAX(CodicePrenotazione) FROM biglietto;";
             final PreparedStatement statement4 = this.connection.prepareStatement(query4);
             final ResultSet result2 = statement4.executeQuery();
@@ -448,8 +444,8 @@ public class Logic {
             if (result2.next()) {
                 reservationId = result2.getInt(1) + 1;
             }
-            statement.setInt(9, reservationId);
-            statement.setString(10, null);
+            statement.setInt(8, reservationId);
+            statement.setString(9, null);
             statement.executeUpdate();
             return true;
         } catch (final SQLException e) {
@@ -464,7 +460,7 @@ public class Logic {
         if (screening == null || turn == null) {
             return false;
         }
-        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, TitoloFilm, Data, Orario, NumeroSala, Email, CodicePrenotazione, CodiceFiscale)" 
+        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario, Email, CodicePrenotazione, CodiceFiscale)" 
                 + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final String query2 = "SELECT MAX(CodiceBiglietto) FROM biglietto;";
@@ -487,10 +483,9 @@ public class Logic {
             statement.setString(4, filmTitle);
             statement.setDate(5, Utils.dateToSqlDate(turn.getDate()));
             statement.setTime(6, turn.getStartingTime());
-            statement.setInt(7, room);
-            statement.setString(8, null);
-            statement.setInt(9, 0);
-            statement.setString(10, loggedWorker.getCF());
+            statement.setString(7, null);
+            statement.setInt(8, 0);
+            statement.setString(9, loggedWorker.getCF());
             statement.executeUpdate();
             return true;
         } catch (final SQLException e) {
