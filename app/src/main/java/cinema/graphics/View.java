@@ -322,8 +322,13 @@ public class View extends javax.swing.JFrame {
                 this.loadFilms();
             } else {
                 this.MainMenu.setComponentAt(1, this.workerArea);
+                if (this.loggedWorker.getRole().equals("pulizie")) {
+                    this.loadWorkerRooms();
+                    this.workerPane.remove(this.workerPane.indexOfTab("Registra Vendita"));
+                } else {
+                    this.workerPane.remove(this.workerPane.indexOfTab("Sale da pulire"));
+                }
                 this.loadWorkerTurns();
-                this.loadWorkerRooms();
             }
             this.MainMenu.setTitleAt(1, this.loggedWorker.getRole());
         } else {
