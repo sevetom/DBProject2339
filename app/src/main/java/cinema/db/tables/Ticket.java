@@ -1,33 +1,23 @@
 package cinema.db.tables;
 
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Date;
-
 public class Ticket {
     private final int ticketCode;
     private final float price;
     private final int seatNumber;
+    private final int roomId;
+    private final int turn;
     private final String movieTitle;
-    private final Date date;
-    private final String showDate;
-    private final Time time;
-    private final String email;
-    private final int reservationCode;
     private final String CF;
+    private final String email;
 
-    public Ticket(int ticketCode, float price, int seatNumber, String movieTitle, Date date, Time time, String email, int reservationCode, String CF) {
+    public Ticket(int ticketCode, float price, int seatNumber, int roomId, final int turn, String movieTitle, final String CF, final String email) {
         this.ticketCode = ticketCode;
         this.price = price;
         this.seatNumber = seatNumber;
         this.movieTitle = movieTitle;
-        this.date = date;
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        this.showDate = calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR);
-        this.time = time;
+        this.roomId = roomId;
+        this.turn = turn;
         this.email = email;
-        this.reservationCode = reservationCode;
         this.CF = CF;
     }
 
@@ -47,27 +37,19 @@ public class Ticket {
         return movieTitle;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public String getShowDate() {
-        return showDate;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public int getReservationCode() {
-        return reservationCode;
-    }
-
     public String getCF() {
         return CF;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 }

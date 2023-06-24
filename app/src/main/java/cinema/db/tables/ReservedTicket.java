@@ -6,37 +6,27 @@ import java.util.Date;
 
 public class ReservedTicket {
     private final int ticketCode;
-    private final float price;
     private final int seatNumber;
     private final String filmTitle;
+    private final int roomId;
     private final Date date;
     private final String showDate;
     private final Time time;
-    private final String email;
-    private final int reservationCode;
-    private final String CF;
 
-    public ReservedTicket(final int ticketCode, final float price, final int seatNumber, final String filmTitle, final Date date, final Time time, final String email, final int reservationCode, final String CF) {
+    public ReservedTicket(final int ticketCode, final String filmTitle, final int seatNumber, final int roomId, final Date date, final Time time) {
         this.ticketCode = ticketCode;
-        this.price = price;
         this.seatNumber = seatNumber;
         this.filmTitle = filmTitle;
+        this.roomId = roomId;
         this.date = date;
         final Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         this.showDate = "" + cal.get(Calendar.DAY_OF_MONTH) +"/"+ cal.get(Calendar.MONTH) +"/"+ cal.get(Calendar.YEAR);
         this.time = time;
-        this.email = email;
-        this.reservationCode = reservationCode;
-        this.CF = CF;
     }
 
     public int getTicketCode() {
         return this.ticketCode;
-    }
-
-    public float getPrice() {
-        return this.price;
     }
 
     public int getSeatNumber() {
@@ -59,15 +49,7 @@ public class ReservedTicket {
         return this.time;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public int getReservationCode() {
-        return this.reservationCode;
-    }
-
-    public String getCF() {
-        return this.CF;
+    public int getRoomId() {
+        return this.roomId;
     }
 }

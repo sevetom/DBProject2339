@@ -89,13 +89,12 @@ public class Logic {
                 final int TicketCode = result.getInt("CodiceBiglietto");
                 final float Price = result.getFloat("Prezzo");
                 final int SeatNumber = result.getInt("NumeroPosto");
+                final int roomId = result.getInt("NumeroSala");
+                final int TurnId = result.getInt("CodiceTurno");
                 final String MovieTitle = result.getString("Titolo");
-                final Date ScreeningDate = Utils.sqlDateToDate(result.getDate("Data"));
-                final Time ScreeningTime = result.getTime("Orario");
-                final String Email = result.getString("Email");
-                final int ReservationCode = result.getInt("CodicePrenotazione");
                 final String CF = result.getString("CodiceFiscale");
-                final Ticket ticket = new Ticket(TicketCode, Price, SeatNumber, MovieTitle, ScreeningDate, ScreeningTime, Email, ReservationCode, CF);
+                final String Email = result.getString("Email");
+                final Ticket ticket = new Ticket(TicketCode, Price, SeatNumber, roomId, TurnId, MovieTitle, CF, Email);
                 tickets.add(ticket);
             }
             return tickets;
@@ -382,7 +381,7 @@ public class Logic {
     }
 
     public Set<ReservedTicket> getTicketsReserved(final User loggedUser) {
-        final String query = "SELECT CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario, Email, CodicePrenotazione, CodiceFiscale " 
+        final String query = "SELECT CodiceBiglietto, NumeroPosto, NumeroSala, CodiceTurno, Titolo " 
                 + "FROM biglietto WHERE Email = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, loggedUser.getEmail());
@@ -390,15 +389,14 @@ public class Logic {
             final Set<ReservedTicket> tickets = new HashSet<>();
             while (result.next()) {
                 final int ticketId = result.getInt("CodiceBiglietto");
-                final float price = result.getFloat("Prezzo");
                 final int seatNumber = result.getInt("NumeroPosto");
+                final int roomId = result.getInt("NumeroSala");
+                final int turnId = result.getInt("CodiceTurno");
+                final Turn turn = this.getTurn(turnId);
                 final String filmTitle = result.getString("Titolo");
-                final Date screeningDate = Utils.sqlDateToDate(result.getDate("Data"));
-                final Time screeningTime = result.getTime("Orario");
-                final String userEmail = result.getString("Email");
-                final int reservationId = result.getInt("CodicePrenotazione");
-                final String userCF = result.getString("CodiceFiscale");
-                final ReservedTicket ticket = new ReservedTicket(ticketId, price, seatNumber, filmTitle, screeningDate, screeningTime, userEmail, reservationId, userCF);
+                final Date screeningDate = turn.getDate();
+                final Time screeningTime = turn.getStartingTime();
+                final ReservedTicket ticket = new ReservedTicket(ticketId,filmTitle, seatNumber, roomId, screeningDate, screeningTime);
                 tickets.add(ticket);
             }
             return tickets;

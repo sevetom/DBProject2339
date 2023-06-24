@@ -144,9 +144,9 @@ public class View extends javax.swing.JFrame {
 
     private void loadTicketsReserved() {
         for (ReservedTicket t : this.logic.getTicketsReserved(this.loggedUser)) {
-            final String[] row = {String.valueOf(t.getTicketCode()), String.valueOf(t.getReservationCode()), t.getFilmTitle(), 
-                    String.valueOf(t.getShowDate()), String.valueOf(t.getTime()), 
-                    String.valueOf(t.getSeatNumber())};
+            final String[] row = {String.valueOf(t.getTicketCode()), t.getFilmTitle(), 
+                    String.valueOf(t.getSeatNumber()), String.valueOf(t.getRoomId()), 
+                    t.getShowDate(), String.valueOf(t.getTime())};
             ((javax.swing.table.DefaultTableModel) this.reservedTable.getModel()).addRow(row);
         }
     }
@@ -170,8 +170,8 @@ public class View extends javax.swing.JFrame {
         for (Ticket t : this.logic.getTickets()) {
             final String[] row = {String.valueOf(t.getTicketCode()), String.valueOf(t.getPrice()), 
                     String.valueOf(t.getSeatNumber()), t.getMovieTitle(), 
-                    t.getShowDate(), String.valueOf(t.getTime()), 
-                    t.getEmail(), String.valueOf(t.getReservationCode()), t.getCF()};
+                    String.valueOf(t.getRoomId()), String.valueOf(t.getTurn()),  
+                    t.getCF(), t.getEmail()};
             ((javax.swing.table.DefaultTableModel) this.ticketsTable.getModel()).addRow(row);
         }
     }
@@ -970,14 +970,14 @@ public class View extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Biglietto", "Prezzo", "Posto", "Film", "Data", "Orario", "Email", "Prenotazione", "CF"
+                "Biglietto", "Prezzo", "Posto", "Sala", "Turno", "Film", "CF", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1687,11 +1687,11 @@ public class View extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Biglietto", "Prenotazione", "Film", "Data", "Orario", "Posto"
+                "Biglietto", "Film", "Posto", "Sala", "Data", "Orario"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
