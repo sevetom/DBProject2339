@@ -7,7 +7,7 @@ import cinema.db.ConnectionProvider;
 import cinema.graphics.View;
 import cinema.model.Logic;
 
-public class App {
+public class Cinema {
     public static void main(String[] args) {
         final ConnectionProvider connectionProvider = new ConnectionProvider("root", "tommaso", "cinema");
         final Logic logic = new Logic(connectionProvider.getMySQLConnection());

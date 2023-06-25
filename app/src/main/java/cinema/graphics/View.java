@@ -4,7 +4,6 @@
  */
 package cinema.graphics;
 
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +32,12 @@ public class View extends javax.swing.JFrame {
     private final Map<String, JTextField> resTicketFields = new HashMap<>();
     private final Map<String, JTextField> sellFields = new HashMap<>();
     private final Map<String, JTextField> barFields = new HashMap<>();
-    private final Map<String, JTextField> remProFields = new HashMap<>();
     private final Map<String, JTextField> insFilmFields = new HashMap<>();
     private final Map<String, JTextField> insTurnFields = new HashMap<>();
     private final Map<String, JTextField> insRoomFields = new HashMap<>();
     private final Map<String, JTextField> insProFields = new HashMap<>();
+    private final Map<String, JTextField> chRoomFields = new HashMap<>();
+    private final Map<String, JTextField> chTurnFields = new HashMap<>();
     private Worker loggedWorker;
     private User loggedUser;
 
@@ -59,6 +59,9 @@ public class View extends javax.swing.JFrame {
         this.loginFields.put("username", this.usernameField);
         this.loginFields.put( "password", this.passwordField);
 
+        this.roleButtonGroup.add(this.roleSellButton);
+        this.roleButtonGroup.add(this.roleCleanButton);
+
         this.signInUserFields.put("email", this.emailField);
         this.signInUserFields.put("name", this.nameField);
         this.signInUserFields.put("surname", this.surnameField);
@@ -79,7 +82,6 @@ public class View extends javax.swing.JFrame {
         this.signInUserFields.put("password", this.pwSignInField);
 
         this.signInWorkerFields.put("CF", this.cfField);
-        this.signInWorkerFields.put("role", this.roleField);
         this.signInWorkerFields.put("name", this.nameField);
         this.signInWorkerFields.put("surname", this.surnameField);
         this.signInWorkerFields.put("city", this.cityField);
@@ -97,13 +99,9 @@ public class View extends javax.swing.JFrame {
         this.sellFields.put("room", this.roomSellField);
         this.sellFields.put("turn", this.sellTurnField);
 
-        this.barFields.put("name", this.snackTypeField);
+        this.barFields.put("type", this.snackTypeField);
         this.barFields.put("price", this.snackPriceField);
         this.barFields.put("brand", this.BrandSnackField);
-
-        this.remProFields.put("title", this.remProTitleField);
-        this.remProFields.put("room", this.remProRoomField);
-        this.remProFields.put("turn", this.remProTurnField);
 
         this.insFilmFields.put("title", this.insFiTitleField);
         this.insFilmFields.put("genre", this.insFiGenreField);
@@ -124,6 +122,12 @@ public class View extends javax.swing.JFrame {
         this.insProFields.put("film", this.insProTitleField);
         this.insProFields.put("room", this.insProRomField);
         this.insProFields.put("turn", this.insProTurField);
+
+        this.chRoomFields.put("id", this.changeRoomField);
+        this.chRoomFields.put("cf", this.chRoomCfField);
+
+        this.chTurnFields.put("id", this.changeTurnField);
+        this.chTurnFields.put("cf", this.chTurnCfField);
     }
 
     private void loadScreenings() {
@@ -138,7 +142,7 @@ public class View extends javax.swing.JFrame {
     private void loadFilms() {
         for (Film f : this.logic.getFilms()) {
             final String[] row = {f.getTitle(), f.getGenre(), f.getShowReleaseString()};
-            ((javax.swing.table.DefaultTableModel) this.filmsTable.getModel()).addRow(row);
+            ((javax.swing.table.DefaultTableModel) this.filmsAdminTable.getModel()).addRow(row);
         }
     }
 
@@ -218,85 +222,6 @@ public class View extends javax.swing.JFrame {
         }
     }
 
-    private void ticketPriceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketPriceButtonActionPerformed
-        this.logic.setTicketPrice(Float.parseFloat(this.ticketPriceField.getText()));
-    }//GEN-LAST:event_ticketPriceButtonActionPerformed
-
-    private void insFiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insFiButtonActionPerformed
-        for (JTextField f : this.insFilmFields.values()) {
-            if (f.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
-                return;
-            }
-        }
-        this.logic.insertFilm(this.insFilmFields.get("title").getText(), this.insFilmFields.get("genre").getText(), 
-                Utils.buildDate(Integer.parseInt(this.insFilmFields.get("releaseD").getText()), 
-                Integer.parseInt(this.insFilmFields.get("releaseM").getText()), 
-                Integer.parseInt(this.insFilmFields.get("releaseY").getText())).get());
-        JOptionPane.showMessageDialog(this, "Film inserito correttamente");
-        for (JTextField f : this.insFilmFields.values()) {
-            f.setText("");
-        }
-        this.loadFilms();
-        this.repaint();
-    }//GEN-LAST:event_insFiButtonActionPerformed
-
-    private void insTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insTurnButtonActionPerformed
-        for (JTextField f : this.insTurnFields.values()) {
-            if (f.getText().isEmpty() && f.getName() != "CF") {
-                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
-                return;
-            }
-        }
-        this.logic.insertTurn(Utils.buildDate(Integer.parseInt(this.insTurnFields.get("dateD").getText()), 
-                Integer.parseInt(this.insTurnFields.get("dateM").getText()), 
-                Integer.parseInt(this.insTurnFields.get("dateY").getText())).get(), 
-                LocalTime.parse(this.insTurnFields.get("timeStart").getText()), 
-                LocalTime.parse(this.insTurnFields.get("timeEnd").getText()), 
-                this.insTurnFields.get("CF").getText() == "" ? null : this.insTurnFields.get("CF").getText());
-        JOptionPane.showMessageDialog(this, "Turno inserito correttamente");
-        for (JTextField f : this.insTurnFields.values()) {
-            f.setText("");
-        }
-        this.loadTurns();
-        this.repaint();
-    }//GEN-LAST:event_insTurnButtonActionPerformed
-
-    private void insRomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insRomButtonActionPerformed
-        for (JTextField f : this.insRoomFields.values()) {
-            if (f.getText().isEmpty() && f.getName() != "CF") {
-                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
-                return;
-            }
-        }
-        this.logic.insertRoom(Integer.parseInt(this.insRoomFields.get("seats").getText()), 
-                this.insRoomFields.get("CF").getText());
-        JOptionPane.showMessageDialog(this, "Sala inserita correttamente");
-        for (JTextField f : this.insRoomFields.values()) {
-            f.setText("");
-        }
-        this.loadRooms();
-        this.repaint();
-    }//GEN-LAST:event_insRomButtonActionPerformed
-
-    private void insProButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insProButtonActionPerformed
-        for (JTextField f : this.insProFields.values()) {
-            if (f.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
-                return;
-            }
-        }
-        this.logic.insertScreening(Integer.parseInt(this.insProFields.get("room").getText()), 
-                Integer.parseInt(this.insProFields.get("turn").getText()), 
-                this.insProFields.get("film").getText());
-        JOptionPane.showMessageDialog(this, "Proiezione inserita correttamente");
-        for (JTextField f : this.insProFields.values()) {
-            f.setText("");
-        }
-        this.loadScreenings();
-        this.repaint();
-    }//GEN-LAST:event_insProButtonActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         for (JTextField f : this.loginFields.values()) {
             if (f.getText().isEmpty()) {
@@ -311,7 +236,7 @@ public class View extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Username o password errati", "Errore", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (this.loggedWorker.getRole().equals("admin")) {
+            if (this.loggedWorker.getCF().equals("admin")) {
                 this.MainMenu.setComponentAt(1, this.adminArea);
                 this.loadTickets();
                 this.loadWorkers();
@@ -347,7 +272,8 @@ public class View extends javax.swing.JFrame {
     private void workerSignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workerSignButtonActionPerformed
         final boolean activated = this.workerSignButton.isSelected();
         this.cfField.setEnabled(activated);
-        this.roleField.setEnabled(activated);
+        this.roleSellButton.setEnabled(activated);
+        this.roleCleanButton.setEnabled(activated);
         this.birthFieldD.setEnabled(!activated);
         this.birthFieldM.setEnabled(!activated);
         this.birthFieldY.setEnabled(!activated);
@@ -366,14 +292,14 @@ public class View extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Password non valida", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (this.workerSignButton.isEnabled()) {
+        if (this.workerSignButton.isSelected()) {
             for (JTextField f : this.signInWorkerFields.values()) {
                 if (f.getText().isEmpty() && f != this.internField) {
                     JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
-            this.logic.insertWorker(this.signInWorkerFields.get("CF").getText(), this.signInWorkerFields.get("role").getText(), 
+            this.logic.insertWorker(this.signInWorkerFields.get("CF").getText(), this.roleCleanButton.isSelected() ? "pulizie" : "vendite", 
                     this.signInWorkerFields.get("name").getText(), this.signInWorkerFields.get("surname").getText(), 
                     this.signInWorkerFields.get("password").getText(), this.signInWorkerFields.get("city").getText(),
                     this.signInWorkerFields.get("address").getText(), Integer.parseInt(this.signInWorkerFields.get("civic").getText()), 
@@ -459,7 +385,7 @@ public class View extends javax.swing.JFrame {
                 return;
             }
         }
-        this.logic.insertSnack(this.barFields.get("snackType").getText(), 
+        this.logic.insertSnack(this.barFields.get("type").getText(), 
                 Float.parseFloat(this.barFields.get("price").getText()), this.barFields.get("brand").getText(), 
                 this.loggedWorker);
         JOptionPane.showMessageDialog(this, "Vendita registrata con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
@@ -468,103 +394,86 @@ public class View extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_sellSnackButtonActionPerformed
 
-    private void remUsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remUsButtonActionPerformed
-        if (this.remUsField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (this.logic.removeUser(this.remUsField.getText())) {
-            JOptionPane.showMessageDialog(this, "Utente rimosso con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remUsField.setText("");
-            this.loadUsers();
-            this.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_remUsButtonActionPerformed
-
-    private void remWorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remWorButtonActionPerformed
-        if (this.remWorField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (this.logic.removeWorker(this.remWorField.getText())) {
-            JOptionPane.showMessageDialog(this, "Dipendente rimosso con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remWorField.setText("");
-            this.loadWorkers();
-            this.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_remWorButtonActionPerformed
-
-    private void remFiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remFiButtonActionPerformed
-        if (this.remFiField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (this.logic.removeFilm(this.remFiField.getText())) {
-            JOptionPane.showMessageDialog(this, "Film rimosso con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remFiField.setText("");
-            this.loadFilms();
-            this.loadScreenings();
-            this.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_remFiButtonActionPerformed
-
-    private void remProButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remProButtonActionPerformed
-        for (JTextField f : this.remProFields.values()) {
+    private void insFiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insFiButtonActionPerformed
+        for (JTextField f : this.insFilmFields.values()) {
             if (f.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
                 return;
             }
         }
-        if (this.logic.removeScreening(this.remProFields.get("title").getText(), Integer.parseInt(this.remProFields.get("room").getText()), 
-                Integer.parseInt(this.remProFields.get("turn").getText()))) {
-            JOptionPane.showMessageDialog(this, "Proiezione rimossa con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remProFields.values().forEach((f) -> {
-                f.setText("");
-            });
-            this.loadScreenings();
-            this.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
+        this.logic.insertFilm(this.insFilmFields.get("title").getText(), this.insFilmFields.get("genre").getText(),
+            Utils.buildDate(Integer.parseInt(this.insFilmFields.get("releaseD").getText()),
+                Integer.parseInt(this.insFilmFields.get("releaseM").getText()),
+                Integer.parseInt(this.insFilmFields.get("releaseY").getText())).get());
+        JOptionPane.showMessageDialog(this, "Film inserito correttamente");
+        for (JTextField f : this.insFilmFields.values()) {
+            f.setText("");
         }
-    }//GEN-LAST:event_remProButtonActionPerformed
+        this.loadFilms();
+        this.repaint();
+    }//GEN-LAST:event_insFiButtonActionPerformed
 
-    private void remTurButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remTurButtonActionPerformed
-        if (this.remTurField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
+    private void insTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insTurnButtonActionPerformed
+        for (JTextField f : this.insTurnFields.values()) {
+            if (f.getText().isEmpty() && f.getName() != "cf") {
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
+                return;
+            }
         }
-        if (this.logic.removeTurn(Integer.parseInt(this.remTurField.getText()))) {
-            JOptionPane.showMessageDialog(this, "Turno rimosso con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remTurField.setText("");
-            this.loadTurns();
-            this.loadScreenings();
-            this.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
+        this.logic.insertTurn(Utils.buildDate(Integer.parseInt(this.insTurnFields.get("dateD").getText()),
+            Integer.parseInt(this.insTurnFields.get("dateM").getText()),
+            Integer.parseInt(this.insTurnFields.get("dateY").getText())).get(),
+        LocalTime.parse(this.insTurnFields.get("timeStart").getText()),
+        LocalTime.parse(this.insTurnFields.get("timeEnd").getText()),
+        this.insTurnFields.get("cf").getText().equals("Codice Fiscale (opzionale)") ? null :
+        this.insTurnFields.get("cf").getText());
+        JOptionPane.showMessageDialog(this, "Turno inserito correttamente");
+        for (JTextField f : this.insTurnFields.values()) {
+            f.setText("");
         }
-    }//GEN-LAST:event_remTurButtonActionPerformed
+        for (JTextField f : this.chRoomFields.values()) {
+            f.setText("");
+        }
+        this.loadTurns();
+        this.repaint();
+    }//GEN-LAST:event_insTurnButtonActionPerformed
 
-    private void remRomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remRomButtonActionPerformed
-        if (this.remRomField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Inserire tutti i campi", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
+    private void chRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRoomButtonActionPerformed
+        for (JTextField f : this.chRoomFields.values()) {
+            if (f.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
+                return;
+            }
         }
-        if (this.logic.removeRoom(Integer.parseInt(this.remRomField.getText()))) {
-            JOptionPane.showMessageDialog(this, "Sala rimossa con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            this.remRomField.setText("");
-            this.loadRooms();
-            this.loadScreenings();
-            this.repaint();
+        if (this.logic.changeRoomCf(Integer.parseInt(this.chRoomFields.get("id").getText()), 
+                this.chRoomFields.get("cf").getText())) {
+            JOptionPane.showMessageDialog(this, "Sala cambiata correttamente");
         } else {
-            JOptionPane.showMessageDialog(this, "Errore durante la rimozione", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Errore durante il cambio sala", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_remRomButtonActionPerformed
+        for (JTextField f : this.chRoomFields.values()) {
+            f.setText("");
+        }
+        this.loadRooms();
+        this.repaint();
+    }//GEN-LAST:event_chRoomButtonActionPerformed
+
+    private void chTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chTurnButtonActionPerformed
+        for (JTextField f : this.chTurnFields.values()) {
+            if (f.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
+                return;
+            }
+        }
+        if (this.logic.changeTurnCf(Integer.parseInt(this.chTurnFields.get("id").getText()), 
+                this.chRoomFields.get("cf").getText())) {
+            JOptionPane.showMessageDialog(this, "Turno cambiata correttamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "Errore durante il cambio turno", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+        this.loadTurns();
+        this.repaint();
+    }//GEN-LAST:event_chTurnButtonActionPerformed
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -618,7 +527,7 @@ public class View extends javax.swing.JFrame {
         roomsTable = new javax.swing.JTable();
         filmsPanel = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        filmsAdminTable = new javax.swing.JTable();
         workerPanel = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         workersTable = new javax.swing.JTable();
@@ -654,31 +563,19 @@ public class View extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        modifyPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         ticketPriceLabel = new javax.swing.JLabel();
         ticketPriceField = new javax.swing.JTextField();
         ticketPriceButton = new javax.swing.JButton();
-        removePanel = new javax.swing.JPanel();
-        removeTitle = new javax.swing.JLabel();
-        remUsLabel = new javax.swing.JLabel();
-        remWorLabel = new javax.swing.JLabel();
-        remFiLabel = new javax.swing.JLabel();
-        remProLabel = new javax.swing.JLabel();
-        remTurLabel = new javax.swing.JLabel();
-        RemRomLabel = new javax.swing.JLabel();
-        remUsField = new javax.swing.JTextField();
-        remWorField = new javax.swing.JTextField();
-        remFiField = new javax.swing.JTextField();
-        remTurField = new javax.swing.JTextField();
-        remRomField = new javax.swing.JTextField();
-        remProTitleField = new javax.swing.JTextField();
-        remProRoomField = new javax.swing.JTextField();
-        remProTurnField = new javax.swing.JTextField();
-        remUsButton = new javax.swing.JButton();
-        remWorButton = new javax.swing.JButton();
-        remFiButton = new javax.swing.JButton();
-        remProButton = new javax.swing.JButton();
-        remTurButton = new javax.swing.JButton();
-        remRomButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        changeRoomField = new javax.swing.JTextField();
+        chRoomCfField = new javax.swing.JTextField();
+        changeTurnField = new javax.swing.JTextField();
+        chTurnCfField = new javax.swing.JTextField();
+        chRoomButton = new javax.swing.JButton();
+        chTurnButton = new javax.swing.JButton();
         userArea = new javax.swing.JPanel();
         reservationPanel = new javax.swing.JPanel();
         resTitle = new javax.swing.JLabel();
@@ -688,6 +585,7 @@ public class View extends javax.swing.JFrame {
         resRoomField = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         reservedTable = new javax.swing.JTable();
+        roleButtonGroup = new javax.swing.ButtonGroup();
         MainMenu = new javax.swing.JTabbedPane();
         screeningsArea = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -742,7 +640,8 @@ public class View extends javax.swing.JFrame {
         cfField = new javax.swing.JTextField();
         workerSignButton = new javax.swing.JCheckBox();
         roleLabel = new javax.swing.JLabel();
-        roleField = new javax.swing.JTextField();
+        roleSellButton = new javax.swing.JRadioButton();
+        roleCleanButton = new javax.swing.JRadioButton();
 
         workerTurnsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -767,7 +666,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        workerTurnsTable.setColumnSelectionAllowed(true);
         jScrollPane5.setViewportView(workerTurnsTable);
+        workerTurnsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout turnsPaneLayout = new javax.swing.GroupLayout(turnsPane);
         turnsPane.setLayout(turnsPaneLayout);
@@ -939,7 +840,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        cleanTable.setColumnSelectionAllowed(true);
         jScrollPane6.setViewportView(cleanTable);
+        cleanTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout cleanPanelLayout = new javax.swing.GroupLayout(cleanPanel);
         cleanPanel.setLayout(cleanPanelLayout);
@@ -988,7 +891,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        ticketsTable.setColumnSelectionAllowed(true);
         jScrollPane7.setViewportView(ticketsTable);
+        ticketsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout ticketPanelLayout = new javax.swing.GroupLayout(ticketPanel);
         ticketPanel.setLayout(ticketPanelLayout);
@@ -1026,7 +931,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        barTable.setColumnSelectionAllowed(true);
         jScrollPane9.setViewportView(barTable);
+        barTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout barPanelLayout = new javax.swing.GroupLayout(barPanel);
         barPanel.setLayout(barPanelLayout);
@@ -1064,7 +971,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        usersTable.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(usersTable);
+        usersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
@@ -1102,7 +1011,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        roomsTable.setColumnSelectionAllowed(true);
         jScrollPane2.setViewportView(roomsTable);
+        roomsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout roomPanelLayout = new javax.swing.GroupLayout(roomPanel);
         roomPanel.setLayout(roomPanelLayout);
@@ -1117,7 +1028,7 @@ public class View extends javax.swing.JFrame {
 
         adminPane.addTab("Sale", roomPanel);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        filmsAdminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1140,7 +1051,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable1);
+        filmsAdminTable.setColumnSelectionAllowed(true);
+        jScrollPane8.setViewportView(filmsAdminTable);
+        filmsAdminTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout filmsPanelLayout = new javax.swing.GroupLayout(filmsPanel);
         filmsPanel.setLayout(filmsPanelLayout);
@@ -1178,7 +1091,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        workersTable.setColumnSelectionAllowed(true);
         jScrollPane10.setViewportView(workersTable);
+        workersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout workerPanelLayout = new javax.swing.GroupLayout(workerPanel);
         workerPanel.setLayout(workerPanelLayout);
@@ -1209,7 +1124,9 @@ public class View extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        turnsTable.setColumnSelectionAllowed(true);
         jScrollPane11.setViewportView(turnsTable);
+        turnsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout turnsPanelLayout = new javax.swing.GroupLayout(turnsPanel);
         turnsPanel.setLayout(turnsPanelLayout);
@@ -1305,16 +1222,6 @@ public class View extends javax.swing.JFrame {
 
         jLabel4.setText("Ora Fine:");
 
-        ticketPriceLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ticketPriceLabel.setText("Prezzo del biglietto base");
-
-        ticketPriceButton.setText("Inserisci");
-        ticketPriceButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ticketPriceButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout insertionPanelLayout = new javax.swing.GroupLayout(insertionPanel);
         insertionPanel.setLayout(insertionPanelLayout);
         insertionPanelLayout.setHorizontalGroup(
@@ -1322,303 +1229,221 @@ public class View extends javax.swing.JFrame {
             .addGroup(insertionPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(insertionPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(86, 667, Short.MAX_VALUE))
-                    .addGroup(insertionPanelLayout.createSequentialGroup()
+                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(insProLabel)
+                            .addComponent(insRomLabel)
+                            .addComponent(insTurLabel)
+                            .addComponent(insFiLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(insertionPanelLayout.createSequentialGroup()
                                 .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(insProLabel)
-                                    .addComponent(insRomLabel)
-                                    .addComponent(insTurLabel)
-                                    .addComponent(insFiLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(insertionPanelLayout.createSequentialGroup()
+                                        .addComponent(insFiTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(insFiGenreField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(insertionPanelLayout.createSequentialGroup()
+                                        .addComponent(insTurDateFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(insTurDateFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(insTurDateFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(insertionPanelLayout.createSequentialGroup()
-                                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(insertionPanelLayout.createSequentialGroup()
-                                                    .addComponent(insRomSeatsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(insRomCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(insertionPanelLayout.createSequentialGroup()
-                                                    .addComponent(insProTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(insProTurField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(insProRomField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(13, 13, 13)
+                                        .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(insTurTimeStartField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(insTurTimeStartField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(insTurTimeEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(insTurCfField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(insertionPanelLayout.createSequentialGroup()
-                                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(insertionPanelLayout.createSequentialGroup()
-                                                .addComponent(insFiTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(insFiGenreField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(insertionPanelLayout.createSequentialGroup()
-                                                .addComponent(insTurDateFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(insTurDateFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(insTurDateFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(1, 1, 1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(insFiReleaseFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(insFiReleaseFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(insFiReleaseFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(insertionPanelLayout.createSequentialGroup()
-                                .addComponent(ticketPriceLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ticketPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ticketPriceButton)))
-                        .addGap(21, 21, 21)
-                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(insFiButton)
-                            .addComponent(insRomButton)
-                            .addComponent(insTurnButton)
-                            .addComponent(insProButton))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(insFiReleaseFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(insFiButton))))
+                            .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(insertionPanelLayout.createSequentialGroup()
+                                    .addComponent(insRomSeatsField)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(insRomCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(insRomButton))
+                                .addGroup(insertionPanelLayout.createSequentialGroup()
+                                    .addComponent(insProTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(insProTurField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(insProRomField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(insProButton))))
+                        .addGap(18, 18, 18)
+                        .addComponent(insTurnButton)))
+                .addGap(86, 96, Short.MAX_VALUE))
         );
         insertionPanelLayout.setVerticalGroup(
             insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(insertionPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(insFiLabel)
+                    .addComponent(insFiTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insFiGenreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insFiReleaseFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insFiReleaseFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insFiReleaseFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(insFiButton))
+                .addGap(18, 18, 18)
                 .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(insertionPanelLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(insFiLabel)
-                            .addComponent(insFiTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insFiGenreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insFiReleaseFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insFiButton)
-                            .addComponent(insFiReleaseFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insFiReleaseFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(insTurLabel)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(insTurTimeStartField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(insTurTimeEndField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(insTurCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(insTurnButton)
-                                .addComponent(insTurDateFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(insTurDateFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(insTurDateFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)))
-                        .addGap(18, 18, 18)
-                        .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(insRomLabel)
-                            .addComponent(insRomSeatsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insRomCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertionPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(insRomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15)
+                    .addComponent(insTurLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(insTurDateFieldD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insTurDateFieldM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insTurDateFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
+                        .addComponent(insTurTimeStartField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(insTurTimeEndField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insTurCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insTurnButton)))
+                .addGap(18, 18, 18)
+                .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(insRomLabel)
+                    .addComponent(insRomSeatsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insRomCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insRomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insProLabel)
                     .addComponent(insProTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(insProTurField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(insProRomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(insProButton))
-                .addGap(18, 18, 18)
-                .addGroup(insertionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ticketPriceLabel)
-                    .addComponent(ticketPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ticketPriceButton))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         adminPane.addTab("Inserzioni", insertionPanel);
 
-        removeTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        removeTitle.setText("Inserire il valore associato al dato che si vuole eliminare:");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setText("Inserire il dato da modificare insieme al valore richiesto:");
 
-        remUsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        remUsLabel.setText("Abbonato");
+        ticketPriceLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ticketPriceLabel.setText("Prezzo del biglietto base");
 
-        remWorLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        remWorLabel.setText("Dipendente");
+        ticketPriceField.setText("0.00");
 
-        remFiLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        remFiLabel.setText("Film");
-
-        remProLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        remProLabel.setText("Proiezione");
-
-        remTurLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        remTurLabel.setText("Turno");
-
-        RemRomLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RemRomLabel.setText("Sala");
-
-        remUsField.setText("Email");
-
-        remWorField.setText("Codice Fiscale");
-
-        remFiField.setText("Titolo");
-
-        remTurField.setText("Codice Turno");
-
-        remRomField.setText("Numero Sala");
-
-        remProTitleField.setText("Titolo");
-
-        remProRoomField.setText("Sala");
-
-        remProTurnField.setText("Turno");
-
-        remUsButton.setText("Elimina");
-        remUsButton.addActionListener(new java.awt.event.ActionListener() {
+        ticketPriceButton.setText("Modifica");
+        ticketPriceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remUsButtonActionPerformed(evt);
+                ticketPriceButtonActionPerformed(evt);
             }
         });
 
-        remWorButton.setText("Elimina");
-        remWorButton.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Addetto alla pulizia");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Turno di lavoro");
+
+        changeRoomField.setText("Sala");
+
+        chRoomCfField.setText("Codice Fiscale");
+
+        changeTurnField.setText("Turno");
+
+        chTurnCfField.setText("Codice Fiscale");
+
+        chRoomButton.setText("Modifica");
+        chRoomButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remWorButtonActionPerformed(evt);
+                chRoomButtonActionPerformed(evt);
             }
         });
 
-        remFiButton.setText("Elimina");
-        remFiButton.addActionListener(new java.awt.event.ActionListener() {
+        chTurnButton.setText("Modifica");
+        chTurnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remFiButtonActionPerformed(evt);
+                chTurnButtonActionPerformed(evt);
             }
         });
 
-        remProButton.setText("Elimina");
-        remProButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remProButtonActionPerformed(evt);
-            }
-        });
-
-        remTurButton.setText("Elimina");
-        remTurButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remTurButtonActionPerformed(evt);
-            }
-        });
-
-        remRomButton.setText("Elimina");
-        remRomButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remRomButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout removePanelLayout = new javax.swing.GroupLayout(removePanel);
-        removePanel.setLayout(removePanelLayout);
-        removePanelLayout.setHorizontalGroup(
-            removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removePanelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(removeTitle)
-                    .addGroup(removePanelLayout.createSequentialGroup()
-                        .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(removePanelLayout.createSequentialGroup()
-                                .addComponent(remProLabel)
+        javax.swing.GroupLayout modifyPanelLayout = new javax.swing.GroupLayout(modifyPanel);
+        modifyPanel.setLayout(modifyPanelLayout);
+        modifyPanelLayout.setHorizontalGroup(
+            modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifyPanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(modifyPanelLayout.createSequentialGroup()
+                        .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modifyPanelLayout.createSequentialGroup()
+                                .addComponent(ticketPriceLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(remProTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(remProRoomField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(remProTurnField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                            .addGroup(removePanelLayout.createSequentialGroup()
-                                .addComponent(remUsLabel)
+                                .addComponent(ticketPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(remUsField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, removePanelLayout.createSequentialGroup()
-                                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(removePanelLayout.createSequentialGroup()
-                                                .addComponent(remWorLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removePanelLayout.createSequentialGroup()
-                                                .addComponent(remFiLabel)
-                                                .addGap(65, 65, 65)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removePanelLayout.createSequentialGroup()
-                                            .addComponent(remTurLabel)
-                                            .addGap(52, 52, 52)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removePanelLayout.createSequentialGroup()
-                                        .addComponent(RemRomLabel)
-                                        .addGap(66, 66, 66)))
-                                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(remWorField)
-                                    .addComponent(remFiField)
-                                    .addComponent(remTurField)
-                                    .addComponent(remRomField))))
+                                .addComponent(ticketPriceButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modifyPanelLayout.createSequentialGroup()
+                                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(modifyPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(43, 43, 43)))
+                                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(changeRoomField)
+                                    .addComponent(changeTurnField))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chRoomCfField)
+                                    .addComponent(chTurnCfField))))
                         .addGap(18, 18, 18)
-                        .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(remUsButton)
-                            .addComponent(remWorButton)
-                            .addComponent(remFiButton)
-                            .addComponent(remProButton)
-                            .addComponent(remTurButton)
-                            .addComponent(remRomButton))))
-                .addContainerGap(271, Short.MAX_VALUE))
+                        .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chRoomButton)
+                            .addComponent(chTurnButton))))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
-        removePanelLayout.setVerticalGroup(
-            removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removePanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(removeTitle)
-                .addGap(31, 31, 31)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remUsLabel)
-                    .addComponent(remUsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remUsButton))
+        modifyPanelLayout.setVerticalGroup(
+            modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifyPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel5)
+                .addGap(29, 29, 29)
+                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(changeRoomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chRoomCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chRoomButton))
                 .addGap(18, 18, 18)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remWorLabel)
-                    .addComponent(remWorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remWorButton))
+                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(changeTurnField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chTurnCfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chTurnButton))
                 .addGap(18, 18, 18)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remFiLabel)
-                    .addComponent(remFiField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remFiButton))
-                .addGap(18, 18, 18)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remProLabel)
-                    .addComponent(remProTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remProRoomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remProTurnField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remProButton))
-                .addGap(18, 18, 18)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remTurLabel)
-                    .addComponent(remTurField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remTurButton))
-                .addGap(18, 18, 18)
-                .addGroup(removePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RemRomLabel)
-                    .addComponent(remRomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remRomButton))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ticketPriceLabel)
+                    .addComponent(ticketPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ticketPriceButton))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
-        adminPane.addTab("Rimozioni", removePanel);
+        adminPane.addTab("Modifiche", modifyPanel);
 
         javax.swing.GroupLayout adminAreaLayout = new javax.swing.GroupLayout(adminArea);
         adminArea.setLayout(adminAreaLayout);
@@ -1705,7 +1530,9 @@ public class View extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        reservedTable.setColumnSelectionAllowed(true);
         jScrollPane3.setViewportView(reservedTable);
+        reservedTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout userAreaLayout = new javax.swing.GroupLayout(userArea);
         userArea.setLayout(userAreaLayout);
@@ -1939,7 +1766,11 @@ public class View extends javax.swing.JFrame {
         roleLabel.setText("Ruolo");
         roleLabel.setEnabled(false);
 
-        roleField.setEnabled(false);
+        roleSellButton.setText("vendite");
+        roleSellButton.setEnabled(false);
+
+        roleCleanButton.setText("pulizie");
+        roleCleanButton.setEnabled(false);
 
         javax.swing.GroupLayout signInScreenLayout = new javax.swing.GroupLayout(signInScreen);
         signInScreen.setLayout(signInScreenLayout);
@@ -1971,7 +1802,9 @@ public class View extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(roleLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(roleField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(roleSellButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(roleCleanButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(signInScreenLayout.createSequentialGroup()
                         .addGroup(signInScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2016,6 +1849,9 @@ public class View extends javax.swing.JFrame {
                                 .addComponent(internField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(29, Short.MAX_VALUE))))
                     .addGroup(signInScreenLayout.createSequentialGroup()
+                        .addComponent(fatLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(signInScreenLayout.createSequentialGroup()
                         .addGroup(signInScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(signInScreenLayout.createSequentialGroup()
                                 .addComponent(cardNumLabel)
@@ -2036,16 +1872,12 @@ public class View extends javax.swing.JFrame {
                             .addGroup(signInScreenLayout.createSequentialGroup()
                                 .addComponent(cardCvcLable)
                                 .addGap(18, 18, 18)
-                                .addComponent(cardCvcField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(signInScreenLayout.createSequentialGroup()
-                        .addGroup(signInScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cardCvcField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(signInScreenLayout.createSequentialGroup()
                                 .addComponent(capLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(capField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(fatLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(capField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         signInScreenLayout.setVerticalGroup(
             signInScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2067,7 +1899,8 @@ public class View extends javax.swing.JFrame {
                             .addComponent(cfLable)
                             .addComponent(cfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(roleLabel)
-                            .addComponent(roleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(roleSellButton)
+                            .addComponent(roleCleanButton))
                         .addGap(18, 18, 18)))
                 .addGroup(signInScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
@@ -2145,6 +1978,46 @@ public class View extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ticketPriceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ticketPriceButtonActionPerformed
+        this.logic.setTicketPrice(Float.parseFloat(this.ticketPriceField.getText()));
+        JOptionPane.showMessageDialog(this, "Prezzo del biglietto aggiornato");
+    }//GEN-LAST:event_ticketPriceButtonActionPerformed
+
+    private void insProButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insProButtonActionPerformed
+        for (JTextField f : this.insProFields.values()) {
+            if (f.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
+                return;
+            }
+        }
+        this.logic.insertScreening(Integer.parseInt(this.insProFields.get("turn").getText()),
+            Integer.parseInt(this.insProFields.get("room").getText()),
+            this.insProFields.get("film").getText());
+        JOptionPane.showMessageDialog(this, "Proiezione inserita correttamente");
+        for (JTextField f : this.insProFields.values()) {
+            f.setText("");
+        }
+        this.loadScreenings();
+        this.repaint();
+    }//GEN-LAST:event_insProButtonActionPerformed
+
+    private void insRomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insRomButtonActionPerformed
+        for (JTextField f : this.insRoomFields.values()) {
+            if (f.getText().isEmpty() && f.getName() != "cf") {
+                JOptionPane.showMessageDialog(this, "Inserire tutti i campi");
+                return;
+            }
+        }
+        this.logic.insertRoom(Integer.parseInt(this.insRoomFields.get("seats").getText()),
+            this.insRoomFields.get("cf").getText());
+        JOptionPane.showMessageDialog(this, "Sala inserita correttamente");
+        for (JTextField f : this.insRoomFields.values()) {
+            f.setText("");
+        }
+        this.loadRooms();
+        this.repaint();
+    }//GEN-LAST:event_insRomButtonActionPerformed
+
     public void initLook() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -2173,7 +2046,6 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BrandSnackField;
     private javax.swing.JTabbedPane MainMenu;
-    private javax.swing.JLabel RemRomLabel;
     private javax.swing.JTextField addressField;
     private javax.swing.JPanel adminArea;
     private javax.swing.JTabbedPane adminPane;
@@ -2198,6 +2070,12 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel cardNumLabel;
     private javax.swing.JTextField cfField;
     private javax.swing.JLabel cfLable;
+    private javax.swing.JButton chRoomButton;
+    private javax.swing.JTextField chRoomCfField;
+    private javax.swing.JButton chTurnButton;
+    private javax.swing.JTextField chTurnCfField;
+    private javax.swing.JTextField changeRoomField;
+    private javax.swing.JTextField changeTurnField;
     private javax.swing.JTextField cityField;
     private javax.swing.JLabel cityLabel;
     private javax.swing.JTextField civicField;
@@ -2209,6 +2087,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel fatLabel;
     private javax.swing.JTextField filmSellField;
     private javax.swing.JLabel filmSellLable;
+    private javax.swing.JTable filmsAdminTable;
     private javax.swing.JPanel filmsPanel;
     private javax.swing.JTable filmsTable;
     private javax.swing.JButton insFiButton;
@@ -2242,6 +2121,9 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -2253,11 +2135,11 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton loginButton;
     private javax.swing.JCheckBox loginCheckBox;
     private javax.swing.JPanel loginScreen;
     private javax.swing.JLabel loginTitle;
+    private javax.swing.JPanel modifyPanel;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLable;
     private javax.swing.JLabel password;
@@ -2266,27 +2148,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JTextField pwSignInField;
     private javax.swing.JLabel pwSignInLable;
     private javax.swing.JPanel registrationArea;
-    private javax.swing.JButton remFiButton;
-    private javax.swing.JTextField remFiField;
-    private javax.swing.JLabel remFiLabel;
-    private javax.swing.JButton remProButton;
-    private javax.swing.JLabel remProLabel;
-    private javax.swing.JTextField remProRoomField;
-    private javax.swing.JTextField remProTitleField;
-    private javax.swing.JTextField remProTurnField;
-    private javax.swing.JButton remRomButton;
-    private javax.swing.JTextField remRomField;
-    private javax.swing.JButton remTurButton;
-    private javax.swing.JTextField remTurField;
-    private javax.swing.JLabel remTurLabel;
-    private javax.swing.JButton remUsButton;
-    private javax.swing.JTextField remUsField;
-    private javax.swing.JLabel remUsLabel;
-    private javax.swing.JButton remWorButton;
-    private javax.swing.JTextField remWorField;
-    private javax.swing.JLabel remWorLabel;
-    private javax.swing.JPanel removePanel;
-    private javax.swing.JLabel removeTitle;
     private javax.swing.JButton resButton;
     private javax.swing.JTextField resRoomField;
     private javax.swing.JLabel resTitle;
@@ -2294,8 +2155,10 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JTextField resTurnField;
     private javax.swing.JPanel reservationPanel;
     private javax.swing.JTable reservedTable;
-    private javax.swing.JTextField roleField;
+    private javax.swing.ButtonGroup roleButtonGroup;
+    private javax.swing.JRadioButton roleCleanButton;
     private javax.swing.JLabel roleLabel;
+    private javax.swing.JRadioButton roleSellButton;
     private javax.swing.JPanel roomPanel;
     private javax.swing.JTextField roomSellField;
     private javax.swing.JLabel roomSellLable;

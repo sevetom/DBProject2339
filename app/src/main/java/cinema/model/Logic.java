@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -36,14 +38,15 @@ public class Logic {
         this.connection = Objects.requireNonNull(connection);
     }
 
-    public Set<FilmScreenings> getFilmScreenings() {
-        final String query = "SELECT F.Titolo, F.Genere, F.DataUscita, P.PostiRimanenti, P.NumeroSala, T.Data, T.OraInizio, T.CodiceTurno" 
+    public List<FilmScreenings> getFilmScreenings() {
+        final String query = "SELECT F.Titolo, F.Genere, F.DataUscita, P.PostiRimanenti, P.NumeroSala, T.Data, T.OraInizio, T.CodiceTurno"
                 + " FROM film F, proiezione P, turno T"
                 + " WHERE F.Titolo = P.Titolo"
-                + " AND P.CodiceTurno = T.CodiceTurno";
+                + " AND P.CodiceTurno = T.CodiceTurno"
+                + " ORDER BY T.CodiceTurno DESC;";
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet result = statement.executeQuery(query);
-            final Set<FilmScreenings> films = new HashSet<>();
+            final List<FilmScreenings> films = new ArrayList<>();
             while (result.next()) {
                 final String Title = result.getString("Titolo");
                 final String Genre = result.getString("Genere");
@@ -53,7 +56,8 @@ public class Logic {
                 final Date ScreeningDate = Utils.sqlDateToDate(result.getDate("Data"));
                 final Time ScreeningTime = result.getTime("OraInizio");
                 final int TurnId = result.getInt("CodiceTurno");
-                final FilmScreenings film = new FilmScreenings(Title, Genre, ReleaseDate, SeatsRemaining, RoomId, ScreeningDate, ScreeningTime, TurnId);
+                final FilmScreenings film = new FilmScreenings(Title, Genre, ReleaseDate, SeatsRemaining, RoomId,
+                        ScreeningDate, ScreeningTime, TurnId);
                 films.add(film);
             }
             return films;
@@ -80,11 +84,12 @@ public class Logic {
         }
     }
 
-    public Set<Ticket> getTickets() {
-        final String query = "SELECT * FROM biglietto;";
+    public List<Ticket> getTickets() {
+        final String query = "SELECT * FROM biglietto " +
+                "ORDER BY CodiceBiglietto DESC;";
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet result = statement.executeQuery(query);
-            final Set<Ticket> tickets = new HashSet<>();
+            final List<Ticket> tickets = new ArrayList<>();
             while (result.next()) {
                 final int TicketCode = result.getInt("CodiceBiglietto");
                 final float Price = result.getFloat("Prezzo");
@@ -103,11 +108,12 @@ public class Logic {
         }
     }
 
-    public Set<Snack> getSnacks() {
-        final String query = "SELECT * FROM alimento;";
+    public List<Snack> getSnacks() {
+        final String query = "SELECT * FROM alimento " +
+                "ORDER BY CodiceVendita DESC;";
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet result = statement.executeQuery(query);
-            final Set<Snack> snacks = new HashSet<>();
+            final List<Snack> snacks = new ArrayList<>();
             while (result.next()) {
                 final int SellId = result.getInt("CodiceVendita");
                 final String Type = result.getString("Tipo");
@@ -167,7 +173,7 @@ public class Logic {
                 final String Street = result.getString("Via");
                 final int HouseNumber = result.getInt("NumCivico");
                 final int Intern = result.getInt("Interno");
-                final User user = new User(Email, birth, cap, cardName, cardNumber, cardExpire, cvc, Name, 
+                final User user = new User(Email, birth, cap, cardName, cardNumber, cardExpire, cvc, Name,
                         Surname, PW, City, Street, HouseNumber, Intern);
                 users.add(user);
             }
@@ -177,11 +183,12 @@ public class Logic {
         }
     }
 
-    public Set<Room> getRooms() {
-        final String query = "SELECT * FROM sala;";
+    public List<Room> getRooms() {
+        final String query = "SELECT * FROM sala " +
+                "ORDER BY NumeroSala DESC;";
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet result = statement.executeQuery(query);
-            final Set<Room> rooms = new HashSet<>();
+            final List<Room> rooms = new ArrayList<>();
             while (result.next()) {
                 final int RoomNumber = result.getInt("NumeroSala");
                 final int Seats = result.getInt("NumeroPosti");
@@ -195,11 +202,12 @@ public class Logic {
         }
     }
 
-    public Set<Turn> getTurns() {
-        final String query = "SELECT * FROM turno;";
+    public List<Turn> getTurns() {
+        final String query = "SELECT * FROM turno " +
+                "ORDER BY CodiceTurno DESC;";
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet result = statement.executeQuery(query);
-            final Set<Turn> turns = new HashSet<>();
+            final List<Turn> turns = new ArrayList<>();
             while (result.next()) {
                 final int TurnId = result.getInt("CodiceTurno");
                 final Date Date = Utils.sqlDateToDate(result.getDate("Data"));
@@ -226,7 +234,7 @@ public class Logic {
                 final String role = result.getString("Ruolo");
                 final String name = result.getString("Nome");
                 final String surname = result.getString("Cognome");
-                final String pw= result.getString("PW");
+                final String pw = result.getString("PW");
                 final String city = result.getString("Citta");
                 final String street = result.getString("Via");
                 final int houseNumber = result.getInt("NumCivico");
@@ -256,12 +264,13 @@ public class Logic {
                 final int cardCvc = result.getInt("CVC");
                 final String name = result.getString("Nome");
                 final String surname = result.getString("Cognome");
-                final String pw= result.getString("PW");
+                final String pw = result.getString("PW");
                 final String city = result.getString("Citta");
                 final String street = result.getString("Via");
                 final int houseNumber = result.getInt("NumCivico");
                 final int intern = result.getInt("Interno");
-                final User user = new User(email, birth, cap, cardName, cardNumber, cardExpire, cardCvc, name, surname, pw, city, street, houseNumber, intern);
+                final User user = new User(email, birth, cap, cardName, cardNumber, cardExpire, cardCvc, name, surname,
+                        pw, city, street, houseNumber, intern);
                 return user;
             }
             return null;
@@ -274,10 +283,11 @@ public class Logic {
         this.ticketPrice = price;
     }
 
-    public void insertUser(final String email, final Date birth, final int cap, final String cardName, 
-            final long cardNumber, final Date cardExpire, final int cardCvc, final String name, 
-            final String surname, final String pw, final String city, final String street, final int houseNumber, final int intern) {
-        final String query = "INSERT INTO abbonato (Email, DataNascita, CAP, NomePropCarta, NumeroCarta, DataScadenzaCarta, CVC, Nome, Cognome, PW, Citta, Via, NumCivico, Interno)" 
+    public void insertUser(final String email, final Date birth, final int cap, final String cardName,
+            final long cardNumber, final Date cardExpire, final int cardCvc, final String name,
+            final String surname, final String pw, final String city, final String street, final int houseNumber,
+            final int intern) {
+        final String query = "INSERT INTO abbonato (Email, DataNascita, CAP, NomePropCarta, NumeroCarta, DataScadenzaCarta, CVC, Nome, Cognome, PW, Citta, Via, NumCivico, Interno)"
                 + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, email);
@@ -300,10 +310,10 @@ public class Logic {
         }
     }
 
-    public void insertWorker(final String CF, final String role, final String Name, 
-            final String Surname, final String password, final String city, 
+    public void insertWorker(final String CF, final String role, final String Name,
+            final String Surname, final String password, final String city,
             final String street, final int houseNumber, final int intern) {
-        final String query = "INSERT INTO dipendente (CodiceFiscale, Ruolo, Nome, Cognome, PW, Citta, Via, NumCivico, Interno)" 
+        final String query = "INSERT INTO dipendente (CodiceFiscale, Ruolo, Nome, Cognome, PW, Citta, Via, NumCivico, Interno)"
                 + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, CF);
@@ -322,7 +332,7 @@ public class Logic {
     }
 
     public void insertFilm(final String title, final String genre, final Date releaseDate) {
-        final String query = "INSERT INTO film (Titolo, Genere, DataUscita)" 
+        final String query = "INSERT INTO film (Titolo, Genere, DataUscita)"
                 + " VALUES (?, ? , ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, title);
@@ -335,7 +345,7 @@ public class Logic {
     }
 
     public void insertTurn(final Date date, final LocalTime startTime, final LocalTime endFilm, final String cf) {
-        final String query = "INSERT INTO turno (CodiceTurno, Data, OraInizio, OraFine, CodiceFiscale)" 
+        final String query = "INSERT INTO turno (CodiceTurno, Data, OraInizio, OraFine, CodiceFiscale)"
                 + " VALUES (?, ? , ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             // takes the highest number bewtween turns and adds 1
@@ -352,7 +362,7 @@ public class Logic {
     }
 
     public void insertRoom(final int seats, final String cf) {
-        final String query = "INSERT INTO sala (NumeroSala, NumeroPosti, CodiceFiscale)" 
+        final String query = "INSERT INTO sala (NumeroSala, NumeroPosti, CodiceFiscale)"
                 + " VALUES (?, ? , ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final int roomId = this.getRooms().stream().mapToInt(r -> r.getRoomId()).max().orElse(0) + 1;
@@ -366,10 +376,11 @@ public class Logic {
     }
 
     public void insertScreening(final int turnId, final int roomId, final String filmTitle) {
-        final String query = "INSERT INTO proiezione (PostiRimanenti, CodiceTurno, NumeroSala, Titolo)" 
-                + " VALUES (?, ? , ?);";
+        final String query = "INSERT INTO proiezione (PostiRimanenti, CodiceTurno, NumeroSala, Titolo)"
+                + " VALUES (?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            final int seats = this.getRooms().stream().filter(r -> r.getRoomId() == roomId).mapToInt(r -> r.getSeats()).findFirst().orElse(0);
+            final int seats = this.getRooms().stream().filter(r -> r.getRoomId() == roomId).mapToInt(r -> r.getSeats())
+                    .findFirst().orElse(0);
             statement.setInt(1, seats);
             statement.setInt(2, turnId);
             statement.setInt(3, roomId);
@@ -380,13 +391,14 @@ public class Logic {
         }
     }
 
-    public Set<ReservedTicket> getTicketsReserved(final User loggedUser) {
-        final String query = "SELECT CodiceBiglietto, NumeroPosto, NumeroSala, CodiceTurno, Titolo " 
-                + "FROM biglietto WHERE Email = ?;";
+    public List<ReservedTicket> getTicketsReserved(final User loggedUser) {
+        final String query = "SELECT CodiceBiglietto, NumeroPosto, NumeroSala, CodiceTurno, Titolo "
+                + "FROM biglietto WHERE Email = ? " +
+                "ORDER BY CodiceBiglietto DESC;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, loggedUser.getEmail());
             final ResultSet result = statement.executeQuery();
-            final Set<ReservedTicket> tickets = new HashSet<>();
+            final List<ReservedTicket> tickets = new ArrayList<>();
             while (result.next()) {
                 final int ticketId = result.getInt("CodiceBiglietto");
                 final int seatNumber = result.getInt("NumeroPosto");
@@ -396,7 +408,8 @@ public class Logic {
                 final String filmTitle = result.getString("Titolo");
                 final Date screeningDate = turn.getDate();
                 final Time screeningTime = turn.getStartingTime();
-                final ReservedTicket ticket = new ReservedTicket(ticketId,filmTitle, seatNumber, roomId, screeningDate, screeningTime);
+                final ReservedTicket ticket = new ReservedTicket(ticketId, filmTitle, seatNumber, roomId, screeningDate,
+                        screeningTime);
                 tickets.add(ticket);
             }
             return tickets;
@@ -405,14 +418,14 @@ public class Logic {
         }
     }
 
-    public Boolean insertReservedTicket(final User loggedUser, final int turnId, final String filmTitle, final int room) {
+    public Boolean insertReservedTicket(final User loggedUser, final int turnId, final String filmTitle,
+            final int room) {
         final Screening screening = this.getScreening(turnId, filmTitle, room);
-        final Turn turn = this.getTurn(turnId);
-        if (screening == null || turn == null) {
+        if (screening == null) {
             return false;
         }
-        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario Email, CodicePrenotazione, CodiceFiscale)" 
-                + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?, ?);";
+        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, NumeroSala, CodiceTurno, Titolo, CodiceFiscale, Email)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final String query2 = "SELECT MAX(CodiceBiglietto) FROM biglietto;";
             final PreparedStatement statement2 = this.connection.prepareStatement(query2);
@@ -431,19 +444,11 @@ public class Logic {
             statement3.setInt(3, room);
             statement3.setString(4, filmTitle);
             statement3.executeUpdate();
-            statement.setString(4, filmTitle);
-            statement.setDate(5, Utils.dateToSqlDate(turn.getDate()));
-            statement.setTime(6, turn.getStartingTime());
-            statement.setString(7, loggedUser.getEmail());
-            final String query4 = "SELECT MAX(CodicePrenotazione) FROM biglietto;";
-            final PreparedStatement statement4 = this.connection.prepareStatement(query4);
-            final ResultSet result2 = statement4.executeQuery();
-            int reservationId = 0;
-            if (result2.next()) {
-                reservationId = result2.getInt(1) + 1;
-            }
-            statement.setInt(8, reservationId);
-            statement.setString(9, null);
+            statement.setInt(4, room);
+            statement.setInt(5, turnId);
+            statement.setString(6, filmTitle);
+            statement.setString(7, null);
+            statement.setString(8, loggedUser.getEmail());
             statement.executeUpdate();
             return true;
         } catch (final SQLException e) {
@@ -451,15 +456,15 @@ public class Logic {
         }
     }
 
-    public Boolean insertFreeTicket(final Worker loggedWorker, final float price, final String filmTitle, 
+    public Boolean insertFreeTicket(final Worker loggedWorker, final float price, final String filmTitle,
             final int room, final int turnId) {
         final Screening screening = this.getScreening(turnId, filmTitle, room);
         final Turn turn = this.getTurn(turnId);
         if (screening == null || turn == null) {
             return false;
         }
-        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, Titolo, Data, Orario, Email, CodicePrenotazione, CodiceFiscale)" 
-                + " VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?, ?);";
+        final String query = "INSERT INTO biglietto (CodiceBiglietto, Prezzo, NumeroPosto, NumeroSala, CodiceTurno, Titolo, CodiceFiscale, Email)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final String query2 = "SELECT MAX(CodiceBiglietto) FROM biglietto;";
             final PreparedStatement statement2 = this.connection.prepareStatement(query2);
@@ -478,21 +483,20 @@ public class Logic {
             statement3.setInt(3, room);
             statement3.setString(4, filmTitle);
             statement3.executeUpdate();
-            statement.setString(4, filmTitle);
-            statement.setDate(5, Utils.dateToSqlDate(turn.getDate()));
-            statement.setTime(6, turn.getStartingTime());
-            statement.setString(7, null);
-            statement.setInt(8, 0);
-            statement.setString(9, loggedWorker.getCF());
+            statement.setInt(4, room);
+            statement.setInt(5, turnId);
+            statement.setString(6, filmTitle);
+            statement.setString(7, loggedWorker.getCF());
+            statement.setString(8, null);
             statement.executeUpdate();
             return true;
         } catch (final SQLException e) {
             throw new IllegalStateException(e);
-        }  
+        }
     }
 
     public Turn getTurn(final int turnId) {
-        final String query = "SELECT CodiceTurno, Data, OraInizio, OraFine, CodiceFiscale " 
+        final String query = "SELECT CodiceTurno, Data, OraInizio, OraFine, CodiceFiscale "
                 + "FROM turno WHERE CodiceTurno = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setInt(1, turnId);
@@ -513,8 +517,9 @@ public class Logic {
     }
 
     public Set<Turn> getWorkerTurns(final Worker loggedWorker) {
-        final String query = "SELECT CodiceTurno, Data, OraInizio, OraFine, CodiceFiscale " 
-                + "FROM turno WHERE CodiceFiscale = ?;";
+        final String query = "SELECT CodiceTurno, Data, OraInizio, OraFine "
+                + "FROM turno WHERE CodiceFiscale = ? "
+                + "ORDER BY CodiceTurno DESC;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, loggedWorker.getCF());
             final ResultSet result = statement.executeQuery();
@@ -524,7 +529,7 @@ public class Logic {
                 final Date screeningDate = Utils.sqlDateToDate(result.getDate("Data"));
                 final Time screeningTime = result.getTime("OraInizio");
                 final Time screeningTimeEnd = result.getTime("OraFine");
-                final String userCF = result.getString("CodiceFiscale");
+                final String userCF = loggedWorker.getCF();
                 final Turn turn = new Turn(turnId, screeningDate, screeningTime, screeningTimeEnd, userCF);
                 turns.add(turn);
             }
@@ -535,8 +540,8 @@ public class Logic {
     }
 
     public Screening getScreening(final int turnId, final String filmTitle, final int room) {
-        final String query = "SELECT PostiRimanenti, CodiceTurno, NumeroSala, Titolo " 
-                + "FROM proiezione WHERE CodiceTurno = ? AND NumeroSala = ? AND Titolo = ?;";
+        final String query = "SELECT PostiRimanenti, CodiceTurno, NumeroSala, Titolo " +
+                "FROM proiezione WHERE CodiceTurno = ? AND NumeroSala = ? AND Titolo = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setInt(1, turnId);
             statement.setInt(2, room);
@@ -556,13 +561,14 @@ public class Logic {
         }
     }
 
-    public Set<Room> getWorkerRooms(final Worker loggedWorker) {
-        final String query = "SELECT NumeroSala, NumeroPosti, CodiceFiscale " 
-                + "FROM sala WHERE CodiceFiscale = ?;";
+    public List<Room> getWorkerRooms(final Worker loggedWorker) {
+        final String query = "SELECT NumeroSala, NumeroPosti, CodiceFiscale "
+                + "FROM sala WHERE CodiceFiscale = ? " +
+                "ORDER BY NumeroSala DESC;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, loggedWorker.getCF());
             final ResultSet result = statement.executeQuery();
-            final Set<Room> rooms = new HashSet<>();
+            final List<Room> rooms = new ArrayList<>();
             while (result.next()) {
                 final int roomNumber = result.getInt("NumeroSala");
                 final int totalSeats = result.getInt("NumeroPosti");
@@ -577,9 +583,10 @@ public class Logic {
     }
 
     public void insertSnack(final String type, final float price, final String brand, final Worker loggedWorker) {
-        final String query = "INSERT INTO snack (CodiceVendita, Tipo, Prezzo, Marca, CodiceFiscale) VALUES (?, ?, ?);";
+        final String query = "INSERT INTO alimento (CodiceVendita, Tipo, Prezzo, Marca, CodiceFiscale)"
+                + "VALUES (?, ?, ?, ?, ?);";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            final String query2 = "SELECT MAX(CodiceVendita) FROM snack;";
+            final String query2 = "SELECT MAX(CodiceVendita) FROM alimento;";
             final PreparedStatement statement2 = this.connection.prepareStatement(query2);
             final ResultSet result = statement2.executeQuery();
             int saleId = 0;
@@ -597,10 +604,22 @@ public class Logic {
         }
     }
 
-    public Boolean removeUser(final String email) {
-        final String query = "DELETE FROM abbonato WHERE Email = ?;";
+    public Boolean changeRoomCf(final int roomNumber, final String newCf) {
+        final String query2 = "SELECT CodiceFiscale FROM dipendente "
+                + "WHERE CodiceFiscale = ? AND Ruolo = 'pulizie';";
+        try (final PreparedStatement statement2 = this.connection.prepareStatement(query2)) {
+            statement2.setString(1, newCf);
+            final ResultSet result2 = statement2.executeQuery();
+            if (!result2.next()) {
+                return false;
+            }
+        } catch (final SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        final String query = "UPDATE sala SET CodiceFiscale = ? WHERE NumeroSala = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, email);
+            statement.setString(1, newCf);
+            statement.setInt(2, roomNumber);
             statement.executeUpdate();
             return true;
         } catch (final SQLException e) {
@@ -608,70 +627,12 @@ public class Logic {
         }
     }
 
-    public Boolean removeWorker(final String cf) {
-        final String query = "DELETE FROM dipendente WHERE CodiceFiscale = ?;";
+    public Boolean changeTurnCf(final int turnId, final String newCf) {
+        final String query = "UPDATE turno SET CodiceFiscale = ? WHERE CodiceTurno = ?;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, cf);
+            statement.setString(1, newCf);
+            statement.setInt(2, turnId);
             statement.executeUpdate();
-            return true;
-        } catch (final SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public Boolean removeFilm(final String title) {
-        final String query = "DELETE FROM film WHERE Titolo = ?;";
-        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, title);
-            statement.executeUpdate();
-            final String query2 = "DELETE FROM proiezione WHERE Titolo = ?;";
-            final PreparedStatement statement2 = this.connection.prepareStatement(query2);
-            statement2.setString(1, title);
-            statement2.executeUpdate();
-            return true;
-        } catch (final SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public Boolean removeScreening(final String title, final int room, final int turn) {
-        final String query = "DELETE FROM proiezione WHERE Titolo = ? AND NumeroSala = ? AND CodiceTurno = ?;";
-        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, title);
-            statement.setInt(2, room);
-            statement.setInt(3, turn);
-            statement.executeUpdate();
-            return true;
-        } catch (final SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public Boolean removeTurn(final int turnId) {
-        final String query = "DELETE FROM turno WHERE CodiceTurno = ?;";
-        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setInt(1, turnId);
-            statement.executeUpdate();
-            // removes the screening associated with the turn
-            final String query2 = "DELETE FROM proiezione WHERE CodiceTurno = ?;";
-            final PreparedStatement statement2 = this.connection.prepareStatement(query2);
-            statement2.setInt(1, turnId);
-            statement2.executeUpdate();
-            return true;
-        } catch (final SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public Boolean removeRoom(final int roomNumber) {
-        final String query = "DELETE FROM sala WHERE NumeroSala = ?;";
-        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setInt(1, roomNumber);
-            statement.executeUpdate();
-            final String query2 = "DELETE FROM proiezione WHERE NumeroSala = ?;";
-            final PreparedStatement statement2 = this.connection.prepareStatement(query2);
-            statement2.setInt(1, roomNumber);
-            statement2.executeUpdate();
             return true;
         } catch (final SQLException e) {
             throw new IllegalStateException(e);

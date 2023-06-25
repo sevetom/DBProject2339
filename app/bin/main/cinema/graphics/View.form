@@ -61,7 +61,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -84,6 +84,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -367,7 +368,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -380,6 +381,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -456,7 +458,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -499,6 +501,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -549,7 +552,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -577,6 +580,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -635,7 +639,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -703,6 +707,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -751,7 +756,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -769,6 +774,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -807,7 +813,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="filmsAdminTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="0">
@@ -817,7 +823,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -835,6 +841,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -888,7 +895,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -931,6 +938,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -981,7 +989,7 @@
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
+                          <TableColumnModel selectionModel="1">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -1009,6 +1017,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -1033,64 +1042,46 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="86" pref="667" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="insProLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="insRomLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="insTurLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="insFiLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="insProLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="insRomLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="insTurLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="insFiLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="insRomSeatsField" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                              <Component id="insRomCfField" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="insProTitleField" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                              <Component id="insProTurField" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                              <Component id="insProRomField" min="-2" pref="72" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                  </Group>
+                                                  <Component id="insFiTitleField" min="-2" pref="99" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="insFiGenreField" min="-2" pref="71" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="insTurDateFieldD" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="insTurTimeStartField" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="insTurDateFieldM" min="-2" pref="43" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="insTurDateFieldY" min="-2" pref="58" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="insTurTimeStartField" min="-2" pref="73" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="insTurTimeEndField" min="-2" pref="69" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="insTurCfField" min="-2" pref="169" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="insFiTitleField" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="insFiGenreField" min="-2" pref="71" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="insTurDateFieldD" min="-2" pref="51" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="insTurDateFieldM" min="-2" pref="43" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="insTurDateFieldY" min="-2" pref="58" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="insFiReleaseFieldD" min="-2" pref="50" max="-2" attributes="0"/>
@@ -1098,27 +1089,35 @@
                                                   <Component id="insFiReleaseFieldM" min="-2" pref="46" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="insFiReleaseFieldY" min="-2" pref="51" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="insFiButton" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="ticketPriceLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="ticketPriceField" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="ticketPriceButton" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="insRomSeatsField" max="32767" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="insRomCfField" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="insRomButton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="insProTitleField" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="insProTurField" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="insProRomField" min="-2" pref="72" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="insProButton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="insFiButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insRomButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insTurnButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insProButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="insTurnButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="86" pref="96" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1127,47 +1126,40 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="insFiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiTitleField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiGenreField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiReleaseFieldD" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiReleaseFieldM" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiReleaseFieldY" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insFiButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="insFiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiTitleField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiGenreField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiReleaseFieldD" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiReleaseFieldM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insFiReleaseFieldY" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="insTurLabel" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="insTurTimeStartField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurTimeEndField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurCfField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurnButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurDateFieldD" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurDateFieldM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="insTurDateFieldY" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="insRomLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insRomSeatsField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="insRomCfField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="insRomButton" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="insTurLabel" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                  <Component id="insTurDateFieldD" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurDateFieldM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurDateFieldY" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurTimeStartField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurTimeEndField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurCfField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="insTurnButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="insRomLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insRomSeatsField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insRomCfField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="insRomButton" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="insProLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="insProTitleField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1175,13 +1167,7 @@
                               <Component id="insProRomField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="insProButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="ticketPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ticketPriceField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ticketPriceButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="159" max="32767" attributes="0"/>
+                          <EmptySpace pref="204" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1354,6 +1340,105 @@
                     <Property name="text" type="java.lang.String" value="Ora Fine:"/>
                   </Properties>
                 </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="modifyPanel">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Modifiche">
+                    <Property name="tabTitle" type="java.lang.String" value="Modifiche"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ticketPriceLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="ticketPriceField" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="ticketPriceButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="changeRoomField" max="32767" attributes="0"/>
+                                              <Component id="changeTurnField" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="chRoomCfField" max="32767" attributes="0"/>
+                                              <Component id="chTurnCfField" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chRoomButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chTurnButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="265" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="changeRoomField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chRoomCfField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chRoomButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="changeTurnField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chTurnCfField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chTurnButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ticketPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ticketPriceField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ticketPriceButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="247" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel5">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="24" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Inserire il dato da modificare insieme al valore richiesto:"/>
+                  </Properties>
+                </Component>
                 <Component class="javax.swing.JLabel" name="ticketPriceLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1363,286 +1448,68 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="ticketPriceField">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="ticketPriceButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Inserisci"/>
+                    <Property name="text" type="java.lang.String" value="Modifica"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ticketPriceButtonActionPerformed"/>
                   </Events>
                 </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="removePanel">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Rimozioni">
-                    <Property name="tabTitle" type="java.lang.String" value="Rimozioni"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="removeTitle" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="remProLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="remProTitleField" min="-2" pref="88" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="remProRoomField" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="remProTurnField" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="remUsLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="remUsField" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="remWorLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="remFiLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="remTurLabel" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="RemRomLabel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="remWorField" max="32767" attributes="0"/>
-                                              <Component id="remFiField" max="32767" attributes="0"/>
-                                              <Component id="remTurField" max="32767" attributes="0"/>
-                                              <Component id="remRomField" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="remUsButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="remWorButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="remFiButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="remProButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="remTurButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="remRomButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="271" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="removeTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="remUsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remUsField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remUsButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="remWorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remWorField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remWorButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="remFiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remFiField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remFiButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="remProLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remProTitleField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remProRoomField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remProTurnField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remProButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="remTurLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remTurField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remTurButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="RemRomLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remRomField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remRomButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="119" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="removeTitle">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="24" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Inserire il valore associato al dato che si vuole eliminare:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="remUsLabel">
+                <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Abbonato"/>
+                    <Property name="text" type="java.lang.String" value="Addetto alla pulizia"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="remWorLabel">
+                <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Dipendente"/>
+                    <Property name="text" type="java.lang.String" value="Turno di lavoro"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="remFiLabel">
+                <Component class="javax.swing.JTextField" name="changeRoomField">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Film"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="remProLabel">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Proiezione"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="remTurLabel">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Turno"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="RemRomLabel">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Sala"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="remUsField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Email"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remWorField">
+                <Component class="javax.swing.JTextField" name="chRoomCfField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Codice Fiscale"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="remFiField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Titolo"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remTurField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Codice Turno"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remRomField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Numero Sala"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remProTitleField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Titolo"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remProRoomField">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Sala"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="remProTurnField">
+                <Component class="javax.swing.JTextField" name="changeTurnField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Turno"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="remUsButton">
+                <Component class="javax.swing.JTextField" name="chTurnCfField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
+                    <Property name="text" type="java.lang.String" value="Codice Fiscale"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="chRoomButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modifica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remUsButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chRoomButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="remWorButton">
+                <Component class="javax.swing.JButton" name="chTurnButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
+                    <Property name="text" type="java.lang.String" value="Modifica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remWorButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="remFiButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remFiButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="remProButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remProButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="remTurButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remTurButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="remRomButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Elimina"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remRomButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chTurnButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1771,7 +1638,7 @@
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                  <TableColumnModel selectionModel="0">
+                  <TableColumnModel selectionModel="1">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -1804,6 +1671,7 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
@@ -1813,6 +1681,8 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="roleButtonGroup">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -2146,7 +2016,9 @@
                                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="roleLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="roleField" min="-2" pref="109" max="-2" attributes="0"/>
+                                          <Component id="roleSellButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="roleCleanButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -2206,6 +2078,10 @@
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
+                                  <Component id="fatLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="cardNumLabel" min="-2" max="-2" attributes="0"/>
@@ -2231,19 +2107,13 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="cardCvcField" min="-2" pref="129" max="-2" attributes="0"/>
                                       </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="capLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="capField" min="-2" pref="76" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="fatLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2271,7 +2141,8 @@
                                       <Component id="cfLable" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cfField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="roleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="roleField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="roleSellButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="roleCleanButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                               </Group>
@@ -2561,8 +2432,15 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="roleField">
+                <Component class="javax.swing.JRadioButton" name="roleSellButton">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="vendite"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="roleCleanButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="pulizie"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
